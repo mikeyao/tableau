@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aviso Reports</title>
+  <script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/tableau_v8.debug.js"></script>
+</head>
+<body>
+  <div id="tableauViz"></div>
+  <script type="text/javascript">
+    var viz, workbook;
+
+    window.onload=function() {
+      var vizDiv = document.getElementById('viz');
+      // Replace it with your published url
+      var vizURL = 'https://10ay.online.tableau.com/#/site/yaojunmike/views/Livedemo/Sheet1';
+      var options = {
+        width: '800px',
+        height: '440px',
+        hideToolbar: true,
+        hideTabs: true
+      }
+    viz = new tableauSoftware.Viz(vizDiv,vizURL, options);
+    }
+  </script>
+</body>
+</html>

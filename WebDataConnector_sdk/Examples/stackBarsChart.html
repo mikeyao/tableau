@@ -1,0 +1,48 @@
+<html>
+<meta http-equiv="Cache-Control" content="no-store" />
+<head>
+  <title>Stacked Bar Chart Connector</title>
+  <script src="https://online.tableau.com/javascripts/api/tableauwdc-1.1.0.js" type="text/javascript"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+  (function() {
+
+
+    var myConnector = tableau.makeConnector();
+
+    myConnector.getColumnHeaders = function() {
+        var fieldNames = ['time', 'stage', 'value'];
+        var fieldTypes = ['string', 'string', 'int'];
+        tableau.headersCallback(fieldNames, fieldTypes);
+    }
+
+    myConnector.getTableData = function(lastRecordToken) {
+        
+        $.ajax({
+          url: "http://localhost:3000/data",
+          dataType: 'json',
+          success: function(data){
+            // Modify Data if needed
+            tableau.dataCallback(data, lastRecordToken, false);
+          }
+        });
+        
+    };
+
+      tableau.registerConnector(myConnector);
+  })();
+
+
+  $(document).ready(function() {
+    // User interaction before trigger tableau.submit()
+    $("#submitButton").click(function() {    
+      tableau.submit();
+    });
+  });
+</script>
+</head>
+<body>
+  <p><button type="button" id="submitButton">Get the Data</button></p>
+</body>
+</html>
